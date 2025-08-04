@@ -9,7 +9,7 @@
     "dev": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.dev",
     "staging": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.staging",
     "start": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.production",
-    "start:up2": "docker build -t git.inet.co.th:5555/team-key/ksp68-2:16082_backend_refund . && docker push git.inet.co.th:5555/team-key/ksp68-2:16082_backend_refund"
+    "start:up2": "docker build -t git.inet.co.th:5555/team-key/ksp68-2:17082_backend_refund . && docker push git.inet.co.th:5555/team-key/ksp68-2:17082_backend_refund"
   },
   "author": "",
   "license": "ISC",

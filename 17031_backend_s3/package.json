@@ -9,7 +9,7 @@
     "dev": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.dev",
     "staging": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.staging",
     "start": "node -r dotenv/config ./src/app.js dotenv_config_path=./.env.production",
-    "start:up": "docker build -t git.inet.co.th:5555/team-key/ksp68-2:16031_backend_s3 . && docker push git.inet.co.th:5555/team-key/ksp68-2:16031_backend_s3"
+    "start:up": "docker build -t git.inet.co.th:5555/team-key/ksp68-2:17031_backend_s3 . && docker push git.inet.co.th:5555/team-key/ksp68-2:17031_backend_s3"
   },
   "author": "",
   "license": "ISC",
