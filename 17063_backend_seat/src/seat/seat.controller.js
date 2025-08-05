@@ -2,16 +2,17 @@ import SeatService from './seat.service.js';
 import ErrorLogRepository from '../error-log.repository.js';
 import { redis1 } from '../redis.js';
 
-const getSeatRedis = async (ProvinceID) => {
-  const keySeatCount = `SeatCount_Province_${ProvinceID}`;
-  const seatData = await redis1.get('Province');
+
+const getSeatRedis = async (RoundID, LocationID) => {
+  const keySeatCount = `SeatCount_R${RoundID}_L${LocationID}`;
+  const seatData = await redis1.get('Location');
   const seatCount = (await redis1.incr(keySeatCount)) - 1;
   return { seatData, seatCount, keySeatCount };
 };
 
-export const checkSeatOld = async (req, res, next) => {
+export const checkSeatRedis = async (req, res, next) => {
   // console.log(" 😎 ~ checkSeat ~ req : ", req.body)
-  if (!req.body.CustomerID || !req.body.ProvinceID) {
+  if (!req.body.CustomerID || !req.body.RoundID || !req.body.LocationID || !req.body.Round || !req.body.Location) {
     return res.status(400).send({
       status: 'failed',
       code: 0,
@@ -19,25 +20,25 @@ export const checkSeatOld = async (req, res, next) => {
       cause: 'รูปแบบข้อมูลไม่ถูกต้อง <br> Invalid Data Format.',
     });
   }
-  const { ProvinceID, ProvinceName, CustomerID } = req.body;
+  const { RoundID, Round, LocationID, Location, CustomerID } = req.body;
   let keyRedis;
   try {
-    const { seatData, seatCount, keySeatCount } = await getSeatRedis(ProvinceID);
+    const { seatData, seatCount, keySeatCount } = await getSeatRedis(RoundID, LocationID);
     keyRedis = keySeatCount;
     const result = JSON.parse(seatData);
-    const resultProvince = result.find((item) => item.ProvinceID == ProvinceID);
+    const resultLocation = result.find((item) => item.RoundID == RoundID && item.LocationID == LocationID);
 
-    if (seatCount >= resultProvince.SeatMax) {
-      await redis1.set(keySeatCount, resultProvince.SeatMax);
+    if (seatCount >= resultLocation.SeatMax) {
+      await redis1.set(keySeatCount, resultLocation.SeatMax);
       return res.status(200).send({
         status: 'success',
         code: 0,
         result: {},
         message: 'ผู้สมัครโปรดทราบ <br> Attention',
-        cause: 'จังหวัดที่ท่านเลือกเต็มแล้ว <br> The province is full.',
+        cause: 'สนามสอบที่ท่านเลือกเต็มแล้ว <br> The exam field is full.',
       });
     }
-    console.log('update redis successfully');
+    // console.log('update redis successfully');
   } catch (error) {
     await new ErrorLogRepository().saveErrorLog(error, req);
     return res.status(500).send({
@@ -47,9 +48,8 @@ export const checkSeatOld = async (req, res, next) => {
       result: '',
     });
   }
-
   try {
-    const resultUpdateSeat = await new SeatService().updateSeatCustomer(ProvinceID, ProvinceName, CustomerID);
+      const resultUpdateSeat = await new SeatService().updateSeatCustomer(RoundID, Round, LocationID, Location, CustomerID);
 
     if (resultUpdateSeat.affectedRows === 1) {
       return res.status(200).send({
@@ -67,52 +67,10 @@ export const checkSeatOld = async (req, res, next) => {
       code: 3,
       result: resultUpdateSeat,
       message: 'เกิดข้อผิดพลาด <br> Warning',
-      cause: 'ท่านได้ทำการเลือกจังหวัดที่สอบแล้ว <br>You have already chosen province.',
+      cause: 'ท่านได้ทำการเลือกรอบและสถานที่สอบแล้ว <br>You have already chosen round and location.',
     });
   } catch (error) {
     await redis1.decr(keyRedis);
-    await new ErrorLogRepository().saveErrorLog(error, req);
-    return res.status(500).send({
-      status: 'fail',
-      code: 0,
-      message: error.message,
-      result: '',
-    });
-  }
-};
-
-export const checkSeat = async (req, res, next) => {
-  // console.log(" 😎 ~ checkSeat ~ req : ", req.body)
-  if (!req.body.CustomerID || !req.body.ProvinceID || !req.body.ProvinceName) {
-    return res.status(400).send({
-      status: 'failed',
-      code: 0,
-      message: 'เกิดข้อผิดพลาด <br> Warning',
-      cause: 'รูปแบบข้อมูลไม่ถูกต้อง <br> Invalid Data Format.',
-    });
-  }
-  const { ProvinceID, ProvinceName, CustomerID } = req.body;
-  try {
-    const resultUpdateSeat = await new SeatService().updateSeatCustomer(ProvinceID, ProvinceName, CustomerID);
-
-    if (resultUpdateSeat.affectedRows === 1) {
-      return res.status(200).send({
-        status: 'success',
-        code: 1,
-        result: resultUpdateSeat,
-        message: '-',
-        cause: '-',
-      });
-    }
-
-    return res.status(200).send({
-      status: 'failed',
-      code: 3,
-      result: resultUpdateSeat,
-      message: 'เกิดข้อผิดพลาด <br> Warning',
-      cause: 'ท่านได้ทำการเลือกจังหวัดที่สอบแล้ว <br>You have already chosen province.',
-    });
-  } catch (error) {
     await new ErrorLogRepository().saveErrorLog(error, req);
     return res.status(500).send({
       status: 'fail',

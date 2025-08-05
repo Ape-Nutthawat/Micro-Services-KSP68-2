@@ -54,8 +54,8 @@ app.post('/api/v2/pay/qr/uat', validateToken, async (req, res, next) => {
   const orderId = req.body.RefNo1;
   const amount = req.body.Amount;
   const desc = req.body.OrderDesc;
-  const PID = desc.split('_')[0];
-  const SID = desc.split('_')[1];
+  const RID = desc.split('_')[0];
+  const LID = desc.split('_')[1];
   const cusId = desc.split('_')[2];
 
   if (cusId.length !== 13) {
@@ -87,8 +87,8 @@ app.post('/api/v2/pay/qr/uat', validateToken, async (req, res, next) => {
     }
 
     const data = {
-      ProvinceID: +PID,
-      SubjectID: +SID,
+      RoundID: +RID,
+      LocationID: +LID,
       DateTime: new Date(),
     };
 
@@ -166,8 +166,8 @@ app.post('/api/v2/pay/qr', validateToken, async (req, res, next) => {
   const orderId = req.body.RefNo1;
   const amount = req.body.Amount;
   const desc = req.body.OrderDesc;
-  const PID = desc.split('_')[0];
-  const SID = desc.split('_')[1];
+  const RID = desc.split('_')[0];
+  const LID = desc.split('_')[1];
   const cusId = desc.split('_')[2];
   if (cusId.length !== 13) {
     return res.status(400).send({
@@ -198,8 +198,8 @@ app.post('/api/v2/pay/qr', validateToken, async (req, res, next) => {
     }
 
     const data = {
-      ProvinceID: +PID,
-      SubjectID: +SID,
+      RoundID: +RID,
+      LocationID: +LID,
       DateTime: new Date(),
     };
 
