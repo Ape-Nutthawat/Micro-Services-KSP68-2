@@ -60,9 +60,6 @@ app.post('/api/v2/pay/callback', async (req, res, next) => {
 });
 
 app.post('/api/pay/callback/uat', async (req, res, next) => {
-  // console.log('callback from tdcp', {
-  //   data: req.body,
-  // });
   try {
     const {
       detail,

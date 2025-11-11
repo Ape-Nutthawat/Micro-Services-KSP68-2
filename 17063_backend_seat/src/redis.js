@@ -5,7 +5,7 @@ const redis1 = new Redis({
   port: config.redis.port,
   host: config.redis.host,
   password: config.redis.password,
-  db: 0,
+  db: 1,
 });
 
 export { redis1 };

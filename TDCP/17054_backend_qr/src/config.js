@@ -41,14 +41,14 @@ const config = {
   },
   tdcp: {
     uat: {
-      tdcpKey: process.env.TDCP_KSP_SUB_KEY_UAT,
+      tdcpKey: process.env.TDCP_KSP_682_KEY_UAT,
       tdcpOauthUrl: process.env.TDCP_OAUTH_URL_UAT,
-      tdcpUrlScb: process.env.TDCP_TOKEN_URL_UAT,
+      tdcpUrl: process.env.TDCP_TOKEN_URL_UAT,
     },
     prd: {
-      tdcpKey: process.env.TDCP_KSP_SUB_KEY_PRD,
+      tdcpKey: process.env.TDCP_KSP_682_KEY_PRD,
       tdcpOauthUrl: process.env.TDCP_OAUTH_URL_PRD,
-      tdcpUrlScb: process.env.TDCP_TOKEN_URL_PRD,
+      tdcpUrl: process.env.TDCP_TOKEN_URL_PRD,
     },
   },
 };

@@ -5,9 +5,9 @@ import { validateToken } from '../authtoken.js';
 
 const router = Router();
 
-router.post('/checkSeat', validateToken, SeatController.checkSeatRedis);
+// router.post('/checkSeat', validateToken, SeatController.checkSeatRedis);
 
-// router.post('/checkSeat', validateToken, checkTimeOpen, checkTimeEnd, SeatController.checkSeat);
+router.post('/checkSeat', validateToken, checkTimeOpen, checkTimeEnd, SeatController.checkSeatRedis);
 
 // router.post('/checkSeat', validateToken, SeatController.checkSeat);
 

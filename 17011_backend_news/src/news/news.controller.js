@@ -7,9 +7,8 @@ export const getAllNews = async (req, res, next) => {
   try {
     const result = await new NewsService().getNews();
     const resObj = {
-      locations: result[0],
-      news: result[1],
-      popups: result[2],
+      news: result[0],
+      popups: result[1],
     };
 
     // console.log('getAllNews success');

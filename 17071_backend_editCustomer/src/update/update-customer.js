@@ -152,7 +152,7 @@ export default class UpdateCustomer {
   }
 
   async getCustomer(CustomerID, BirthDMY) {
-    const sqlCustomer = `SELECT CustomerID, BirthDMY, Name1, Name2, Name3, Name1EN, Name2EN, NameMidEN, Name3EN, TelMobile, Email, Degree, Major , University, FileImg FROM customer WHERE CustomerID = ? AND BirthDMY = ?`;
+    const sqlCustomer = `SELECT CustomerID, BirthDMY, Name1, Name2, Name3, Name1EN, Name2EN, NameMidEN, Name3EN, TelMobile, Email, Major , University, FileImg FROM customer WHERE CustomerID = ? AND BirthDMY = ?`;
     const [customerData] = await pool.query(sqlCustomer, [CustomerID, BirthDMY]);
     return customerData;
   }

@@ -1,7 +1,7 @@
 const checkTimeOpen1 = (req, res, next) => {
   const now = new Date();
 
-  const registerOpenDate = new Date(2025, 6, 4, 0, 0, 0); //วันเปิดระบบตรวจสอบสิทธิและปรับปรุงข้อมูล
+  const registerOpenDate = new Date(2025, 8, 5, 0, 0, 0); //วันเปิดระบบตรวจสอบสิทธิและปรับปรุงข้อมูล
 
   if (now < registerOpenDate) {
     res.status(200).send({
@@ -20,7 +20,7 @@ const checkTimeOpen1 = (req, res, next) => {
 const checkTimeOpen2 = (req, res, next) => {
   const now = new Date();
 
-  const registerOpenDate = new Date(2025, 6, 6, 8, 30, 0); //วันเปิดระบบตรวจสอบสิทธิและปรับปรุงข้อมูล
+  const registerOpenDate = new Date(2025, 8, 6, 8, 30, 0); //วันเปิดระบบตรวจสอบสิทธิและปรับปรุงข้อมูล
 
   if (now < registerOpenDate) {
     res.status(200).send({
@@ -39,7 +39,7 @@ const checkTimeOpen2 = (req, res, next) => {
 const checkTimeEnd = (req, res, next) => {
   const now = new Date();
 
-  const registerEndDate = new Date(2025, 6, 18, 16, 30, 0); //วันปิดระบบตรวจสอบสิทธิและปรับปรุงข้อมูล
+  const registerEndDate = new Date(2025, 8, 11, 16, 30, 0); //วันปิดระบบตรวจสอบสิทธิและปรับปรุงข้อมูล
 
   if (now > registerEndDate) {
     res.status(200).send({

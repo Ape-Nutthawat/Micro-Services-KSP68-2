@@ -1,7 +1,7 @@
 const checkTimeOpen = (req, res, next) => {
   const now = new Date();
 
-  const registerOpenDate = new Date(2025, 6, 26, 0, 0, 0); //วันเปิดรับสมัคร
+  const registerOpenDate = new Date(2025, 8, 20, 0, 0, 0); //วันเปิดรับสมัคร
 
   if (now < registerOpenDate) {
     res.status(200).send({
@@ -20,7 +20,7 @@ const checkTimeOpen = (req, res, next) => {
 const checkTimeEnd = (req, res, next) => {
   const now = new Date();
 
-  const registerEndDate = new Date(2025, 6, 28, 23, 59, 59); //วันปิด
+  const registerEndDate = new Date(2025, 8, 22, 23, 59, 59); //วันปิด
 
   if (now > registerEndDate) {
     res.status(200).send({

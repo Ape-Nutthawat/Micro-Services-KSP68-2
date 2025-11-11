@@ -74,13 +74,13 @@ export const checkMember = async (req, res, next) => {
       message: '<b> ไม่พบข้อมูลของท่าน โปรดดำเนินการ ดังนี้ <br> (Your information was not found. Please proceed as follows) </b>',
       cause: `
       <div style="text-align:left">
-        <br> <b>1) กรณีเป็นผู้ศึกษาในหลักสูตรปริญญาทางการศึกษา หรือเทียบเท่าที่คุรุสภารับรอง ให้แจ้งผลการ<a style="color:blue">ตรวจสอบสิทธิกับสถาบันอุดมศึกษาของตนเอง</a> </b> เพื่อให้สถาบันฯ ดำเนินการในส่วนที่เกี่ยวข้อง <br> 
-        1) If you are a student enrolled in an education degree program or an equivalent program recognized by the Teachers' Council of Thailand (Kurusapha), please report the eligibility <a style="color:blue">verification results to your own university </a> for them to proceed with the relevant actions.
+        <br> <b>1) กรณีผู้ตรวจสอบสิทธิไม่เคยสมัครเข้ารับการทดสอบ ให้แจ้งผลการ<a style="color:blue">ตรวจสอบสิทธิให้กับสถาบันอุดมศึกษาของตนเอง</a> </b> เพื่อให้สถาบันฯ ดำเนินการในส่วนที่เกี่ยวข้อง <br> 
+        1) In the case of the candidates who have never registered for the examination, the candidates must inform <a style="color:blue">the results of the eligibility to their own higher education institution</a>, for the institution to proceed with the relevant actions accordingly.
         <br>
-        <br> <b>2) กรณีเป็นผู้ผ่านการรับรองความรู้ตามมาตรฐานวิชาชีพ ให้แจ้งผลการ<a style="color:blue">ตรวจสอบสิทธิกับทางสำนักงานเลขาธิการคุรุสภา</a> </b><br> 
-        2) If you have been certified for professional knowledge according to professional standards, please report the eligibility <a style="color:blue">verification results to the Secretariat of the Teachers' Council of Thailand (Kurusapha).</a>
+        <br> <b>2) กรณีผู้ตรวจสอบสิทธิเป็นผู้ไม่ผ่านเกณฑ์การทดสอบครั้งที่ผ่านมา ให้แจ้งผลการตรวจสอบสิทธิกับสำนักงานเลขาธิการคุรุสภา </b> <a style="color:red">ผ่านระบบรับสมัครสอบ ในวันที่ 5 - 11 กันยายน 2568 </a><br> 
+        2) In the case of the candidates who did not pass in the previous examination, the candidates must inform the results of the eligibility to the Office of the Secretary-General of the Teachers' Council of Thailand <a style="color:red">through the exam registration system between September 5 - 11, 2025</a>
       </div>
-      <br><b> ทั้งนี้ ขอให้ท่านดำเนินการภายในวันที่ 6 - 18 กรกฎาคม 2568 (Please proceed within July 6 - 18, 2025.)</b>`,
+      <br><b> ทั้งนี้ ขอให้ท่านดำเนินการไม่เกินวันที่ 5 - 11 กันยายน 2568 (Please proceed within September 5 - 11, 2025.)</b>`,
     });
   } catch (error) {
     await new ErrorLogRepository().saveErrorLog(error, req);
@@ -118,14 +118,24 @@ export const updateMember = async (req, res, next) => {
       message: '<b> ไม่พบข้อมูลของท่าน โปรดดำเนินการ ดังนี้ <br> (Your information was not found. Please proceed as follows) </b>',
       cause: `
       <div style="text-align:left">
-        <br> <b>1) กรณีเป็นผู้ศึกษาในหลักสูตรปริญญาทางการศึกษา หรือเทียบเท่าที่คุรุสภารับรอง ให้แจ้งผลการ<a style="color:blue">ตรวจสอบสิทธิกับสถาบันอุดมศึกษาของตนเอง</a> </b> เพื่อให้สถาบันฯ ดำเนินการในส่วนที่เกี่ยวข้อง <br> 
-        1) If you are a student enrolled in an education degree program or an equivalent program recognized by the Teachers' Council of Thailand (Kurusapha), please report the eligibility <a style="color:blue">verification results to your own university </a> for them to proceed with the relevant actions.
+        <br> <b>1) กรณีผู้ตรวจสอบสิทธิไม่เคยสมัครเข้ารับการทดสอบ ให้แจ้งผลการ<a style="color:blue">ตรวจสอบสิทธิให้กับสถาบันอุดมศึกษาของตนเอง</a> </b> เพื่อให้สถาบันฯ ดำเนินการในส่วนที่เกี่ยวข้อง <br> 
+        1) In the case of the candidates who have never registered for the examination, the candidates must inform <a style="color:blue">the results of the eligibility to their own higher education institution</a>, for the institution to proceed with the relevant actions accordingly.
         <br>
-        <br> <b>2) กรณีเป็นผู้ผ่านการรับรองความรู้ตามมาตรฐานวิชาชีพ ให้แจ้งผลการ<a style="color:blue">ตรวจสอบสิทธิกับทางสำนักงานเลขาธิการคุรุสภา</a> </b><br> 
-        2) If you have been certified for professional knowledge according to professional standards, please report the eligibility <a style="color:blue">verification results to the Secretariat of the Teachers' Council of Thailand (Kurusapha).</a>
+        <br> <b>2) กรณีผู้ตรวจสอบสิทธิเป็นผู้ไม่ผ่านเกณฑ์การทดสอบครั้งที่ผ่านมา ให้แจ้งผลการตรวจสอบสิทธิกับสำนักงานเลขาธิการคุรุสภา </b> <a style="color:red">ผ่านระบบรับสมัครสอบ ในวันที่ 5 - 11 กันยายน 2568 </a><br> 
+        2) In the case of the candidates who did not pass in the previous examination, the candidates must inform the results of the eligibility to the Office of the Secretary-General of the Teachers' Council of Thailand <a style="color:red">through the exam registration system between September 5 - 11, 2025</a>
       </div>
-      <br><b> ทั้งนี้ ขอให้ท่านดำเนินการภายในวันที่ 6 - 18 กรกฎาคม 2568 (Please proceed within July 6 - 18, 2025.)</b>`,
+      <br><b> ทั้งนี้ ขอให้ท่านดำเนินการไม่เกินวันที่ 5 - 11 กันยายน 2568 (Please proceed within September 5 - 11, 2025.)</b>`,
     });
+    //   cause: `
+    //   <div style="text-align:left">
+    //     <br> <b>1) กรณีเป็นผู้ศึกษาในหลักสูตรปริญญาทางการศึกษา หรือเทียบเท่าที่คุรุสภารับรอง ให้แจ้งผลการ<a style="color:blue">ตรวจสอบสิทธิกับสถาบันอุดมศึกษาของตนเอง</a> </b> เพื่อให้สถาบันฯ ดำเนินการในส่วนที่เกี่ยวข้อง <br> 
+    //     1) If you are a student enrolled in an education degree program or an equivalent program recognized by the Teachers' Council of Thailand (Kurusapha), please report the eligibility <a style="color:blue">verification results to your own university </a> for them to proceed with the relevant actions.
+    //     <br>
+    //     <br> <b>2) กรณีเป็นผู้ผ่านการรับรองความรู้ตามมาตรฐานวิชาชีพ ให้แจ้งผลการ<a style="color:blue">ตรวจสอบสิทธิกับทางสำนักงานเลขาธิการคุรุสภา</a> </b><br> 
+    //     2) If you have been certified for professional knowledge according to professional standards, please report the eligibility <a style="color:blue">verification results to the Secretariat of the Teachers' Council of Thailand (Kurusapha).</a>
+    //   </div>
+    //   <br><b> ทั้งนี้ ขอให้ท่านดำเนินการภายในวันที่ 5 - 11 กันยายน 2568 (Please proceed within September 5 - 11, 2025.)</b>`,
+    // });
   } catch (error) {
     await new ErrorLogRepository().saveErrorLog(error, req);
     if (error.errno === 1062) {

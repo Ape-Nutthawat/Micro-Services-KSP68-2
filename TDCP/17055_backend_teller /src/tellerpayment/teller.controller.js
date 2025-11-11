@@ -11,8 +11,8 @@ export const addTeller = async (req, res) => {
 
     const body = {
       key: config.tdcpKey,
-      start_date: '20250716',
-      end_date : '20250725',
+      start_date: '20250909',
+      end_date : '20250919',
       status: 'Success',
     };
     console.log(" 😎 ~ addTeller ~ body : ", body)

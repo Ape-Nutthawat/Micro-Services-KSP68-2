@@ -81,7 +81,7 @@ export const checkSeatRedis = async (req, res, next) => {
   }
 };
 
-export const reloadSeat = async (req, res, next) => {
+export const reloadSeatNonSet = async (req, res, next) => {
   try {
     const result = await new SeatService().reloadSeatCustomer();
     // console.log(" 😎 ~ reloadSeat ~ result : ", result)
@@ -91,6 +91,45 @@ export const reloadSeat = async (req, res, next) => {
       result,
       message: '-',
       cause: '-',
+    });
+  } catch (error) {
+    await new ErrorLogRepository().saveErrorLog(error, req);
+    next(error);
+  }
+};
+
+export const reloadSeat = async (req, res, next) => {
+  try {
+    const seatService = new SeatService();
+    const result = await seatService.getSeatCustomer();
+
+    if (result.length === 0) {
+      return res.status(200).send({
+        status: 'success',
+        code: 0,
+        result,
+        message: '',
+        cause: '-',
+      });
+    }
+    const updateSeatRedis = await seatService.updateSeatRedis(result);
+  
+    if (updateSeatRedis === 'OK') {
+      await seatService.reloadSeatCustomer();
+      return res.status(200).send({
+        status: 'success',
+        code: 1,
+        result,
+        message: '-',
+        cause: '-',
+      });
+    }
+    return res.status(400).send({
+      status: 'failed',
+      code: 0,
+      result,
+      message: 'เกิดข้อผิดพลาด <br> Warning',
+      cause: 'อัปเดทข้อมูลไม่สำเร็จ <br> Update Failed',
     });
   } catch (error) {
     await new ErrorLogRepository().saveErrorLog(error, req);

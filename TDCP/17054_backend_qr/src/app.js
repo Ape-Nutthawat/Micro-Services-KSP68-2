@@ -12,7 +12,8 @@ const { port, env } = config.app;
 
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
-app.use(cors({ origin: ['http://localhost:3001','http://localhost:3000', 'https://uat-kspsubjects2568.thaijobjob.com','https://kspsubjects2568.thaijobjob.com', 'https://kspsubjects2568.inet.co.th'] }));
+// app.use(cors({ origin: ['http://localhost:3001','http://localhost:3000', 'https://uat-kspsubjects2568.thaijobjob.com','https://kspsubjects2568.thaijobjob.com', 'https://kspsubjects2568.inet.co.th'] }));
+app.use(cors({ origin: "*"}));
 
 // const insertLogGenQr = async (cusId, data) => {
 //   const setRedis = await redis4
@@ -122,9 +123,9 @@ app.post('/api/v2/pay/qr/uat', validateToken, async (req, res, next) => {
       'Content-Type': 'application/json',
     };
 
-    const thaiNewSCB = await axios.post(config.tdcp.uat.tdcpUrlScb, body, { headers });
+    const responseQR = await axios.post(config.tdcp.uat.tdcpUrl, body, { headers });
 
-    const { accessToken, link, ref1, ref2 } = thaiNewSCB.data.data;
+    const { accessToken, link, ref1, ref2 } = responseQR.data.data;
 
     const results = await axios.post(link, { accessToken: accessToken });
     const qr = results.data.data.qrCode;
@@ -176,7 +177,7 @@ app.post('/api/v2/pay/qr', validateToken, async (req, res, next) => {
     });
   }
 
-  // console.log(parseInt(amount));
+  console.log(parseInt(amount));
   if (parseInt(amount) != 545 && parseInt(amount) != 1045) {
     return res.status(400).send({
       status: 'fail',
@@ -202,6 +203,7 @@ app.post('/api/v2/pay/qr', validateToken, async (req, res, next) => {
       LocationID: +LID,
       DateTime: new Date(),
     };
+    console.log(" 😎 ~ data : ", data)
 
     const oauthToken = await axios.post(config.tdcp.prd.tdcpOauthUrl, {
       orderId,
@@ -227,9 +229,9 @@ app.post('/api/v2/pay/qr', validateToken, async (req, res, next) => {
       'Content-Type': 'application/json',
     };
 
-    const thaiNewSCB = await axios.post(config.tdcp.prd.tdcpUrlScb, body, { headers });
+    const responseQR = await axios.post(config.tdcp.prd.tdcpUrl, body, { headers });
 
-    const { accessToken, link, ref1, ref2 } = thaiNewSCB.data.data;
+    const { accessToken, link, ref1, ref2 } = responseQR.data.data;
 
     const results = await axios.post(link, { accessToken: accessToken });
     const qr = results.data.data.qrCode;
@@ -302,9 +304,9 @@ app.post('/api/v2/pay/qr2', validateToken, async (req, res, next) => {
       'Content-Type': 'application/json',
     };
 
-    const thaiNewSCB = await axios.post(config.tdcp.prd.tdcpUrlScb, body, { headers });
+    const responseQR = await axios.post(config.tdcp.prd.tdcpUrl, body, { headers });
 
-    const { accessToken, link, ref1, ref2 } = thaiNewSCB.data.data;
+    const { accessToken, link, ref1, ref2 } = responseQR.data.data;
 
     const results = await axios.post(link, { accessToken: accessToken });
     const qr = results.data.data.qrCode;
